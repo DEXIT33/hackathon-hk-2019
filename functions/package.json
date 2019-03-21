@@ -11,6 +11,8 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "axios": "^0.18.0",
+    "fast-xml-parser": "^3.12.14",
     "firebase-admin": "~7.0.0",
     "firebase-functions": "^2.2.0"
   },
