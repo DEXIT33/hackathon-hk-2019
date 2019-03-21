@@ -3,11 +3,11 @@
     :mini-variant="mini"
     fixed
     clipped
-    :permanent="!mobile"
     app
     class="navbar"
+    v-model="opened"
     @mouseover.native="mini = false"
-    @mouseleave.native="mini = true"
+    @mouseleave.native="mini = true"    
     v-bind:class="{maximized: !mini}"
   >
     <v-list>
@@ -30,7 +30,7 @@
 
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component,Prop, Vue } from 'vue-property-decorator';
 import { items } from '../shared/toolbar_items';
 
 @Component({
@@ -52,8 +52,10 @@ export default class Navbar extends Vue {
   private handleResize() {
     if (window.innerWidth < 600) {
       this.mobile = true;
+      this.mini = false;
     } else {
       this.mobile = false;
+      this.opened = true;
     }
   }
 
@@ -64,6 +66,11 @@ export default class Navbar extends Vue {
   get items() {
     return items;
   }
+
+    
+    @Prop({default: false})
+    public opened!: boolean;
+
 }
 </script>
 

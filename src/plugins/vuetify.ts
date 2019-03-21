@@ -6,5 +6,5 @@ Vue.use(Vuetify, {
   iconfont: 'md',
   theme: {
     primary: '#7e57c2',
-  }
-})
+  },
+});

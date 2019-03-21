@@ -1,21 +1,38 @@
 
 <template>
   <v-app>
-    <navbar/>
     <v-toolbar app fixed clipped-left color="white" class="toolbar">
+        <v-toolbar-side-icon v-if="mobile" @click.native="toggleDrawer()"></v-toolbar-side-icon>
       <v-toolbar-title>
         Kalendář Akcí
       </v-toolbar-title>
     </v-toolbar>
-    <SideBar></SideBar>
+    <SideBar :opened="drawerOpened"></SideBar>
     <v-content>
       <router-view/>
     </v-content>
+    <v-bottom-nav
+      :value="mobile"
+      fixed
+    >
+      <v-btn 
+        v-for="item in items"
+        :key="item.title"
+        router
+        :to="item.route"
+        flat
+        color="primary"
+      >
+        <span>{{ item.title }}</span>
+        <v-icon>{{ item.icon }}</v-icon>
+      </v-btn>
+    </v-bottom-nav>
   </v-app>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import SideBar from './components/SideBar.vue';
+import { items } from './shared/toolbar_items';
 
 @Component({
   components: {
@@ -23,7 +40,33 @@ import SideBar from './components/SideBar.vue';
   },
 })
 
-export default class Home extends Vue {
+export default class App extends Vue {
+  get items() {
+    return items;
+    }
+  private mobile:boolean = false;
+  private drawerOpened:boolean = false;
+
+   private created() {
+    // tslint:disable-next-line:max-line-length
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  private mounted() {
+    this.handleResize();
+  }
+
+  private handleResize() {
+    if (window.innerWidth < 600) {
+      this.mobile = true;
+    } else {
+      this.mobile = false;
+    }
+  }
+
+  private toggleDrawer(){
+    this.drawerOpened = !this.drawerOpened;
+  }
 }
 </script>
 

@@ -5,13 +5,13 @@ export const items =  [
         route: '/',
     },
     {
-        title: 'Doporučené',
+        title: 'Populární',
         icon: 'star',
-        route: '/lol',
+        route: '/popularni',
     },
     {
         title: 'Oblíbené',
         icon: 'favorite',
-        route: '/about',
+        route: '/oblibene',
     },
 ];
