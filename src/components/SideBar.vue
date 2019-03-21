@@ -4,6 +4,7 @@
     fixed
     clipped
     app
+    :permanent="!mobile"
     class="navbar"
     v-model="opened"
     @mouseover.native="mini = false"
@@ -36,7 +37,11 @@ import { items } from '../shared/toolbar_items';
 @Component({
 })
 export default class Navbar extends Vue {
+   
+  @Prop({default: false})
+  public opened!: boolean;
 
+  private opDrawer = this.opened;
   public mini = true;
   private mobile = false;
 
@@ -66,10 +71,6 @@ export default class Navbar extends Vue {
   get items() {
     return items;
   }
-
-    
-    @Prop({default: false})
-    public opened!: boolean;
 
 }
 </script>
