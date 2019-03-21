@@ -1,30 +1,30 @@
 <template>
 <div class="container-main" v-bar="{
-    preventParentScroll: true
+  preventParentScroll: true
 }">
-    <div @scroll="handleScroll">
-      <v-container class="container-header">
-        <h1 class="display-3 font-weight-black ">Všechny akce</h1>
-        <p class="title font-weight-regular">Řazeno od dnešního data</p>
-      </v-container>
-      <v-container class="container-content" ref="content">
-        <masonry
-          :cols="cols"
-          gutter="30"
-          >
-          <event-card
-            v-for="event in events"
-            :key="event.id" 
-            :eventId="event.id"
-            :text="event.anotation"
-            :title="event.name"
-            :date="formatDate(event.date_time_start_first.toDate())"
-            :place="places.has(String(event.place)) ? places.get(String(event.place)).name : ''"
-            :img="(event.photos && event.photos.length > 0) ? 'http://www.hkregion.cz/galerie/obrazky/imager.php?img=' + event.photos[0] + '&x=500' : undefined"></event-card>
-        </masonry>
-      </v-container>
-    </div>
+  <div @scroll="handleScroll">
+    <v-container class="container-header">
+      <h1 class="display-3 font-weight-black ">Všechny akce</h1>
+      <p class="title font-weight-regular">Řazeno od dnešního data</p>
+    </v-container>
+    <v-container class="container-content" ref="content">
+      <masonry
+        :cols="cols"
+        gutter="30"
+        >
+        <event-card
+          v-for="event in events"
+          :key="event.id" 
+          :eventId="event.id"
+          :text="event.anotation"
+          :title="event.name"
+          :date="formatDate(event.date_time_start_first.toDate())"
+          :place="places.has(String(event.place)) ? places.get(String(event.place)).name : ''"
+          :img="(event.photos && event.photos.length > 0) ? 'http://www.hkregion.cz/galerie/obrazky/imager.php?img=' + event.photos[0] + '&x=500' : undefined"></event-card>
+      </masonry>
+    </v-container>
   </div>
+</div>
 </template>
 
 <script lang="ts">
