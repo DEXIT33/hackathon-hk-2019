@@ -8,8 +8,8 @@
       <div>
         <div class="headline" v-on:click="openDetail()">{{title}}</div>
         <div class="infotext">
-          <div class="grey--text"><v-icon>calendar_today</v-icon>{{date}}</div>
-          <div class="grey--text"><v-icon>place</v-icon>{{place}}</div>
+          <div class="grey--text" v-show="this.date"><v-icon>calendar_today</v-icon>{{date}}</div>
+          <div class="grey--text" v-show="this.place"><v-icon>place</v-icon>{{place}}</div>
         </div>
       </div>
     </v-card-title>
