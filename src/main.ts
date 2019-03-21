@@ -9,9 +9,18 @@ import Vuebar from 'vuebar';
 // @ts-ignore
 import VueMasonry from 'vue-masonry-css';
 import Firebase from 'firebase';
-
+ 
+import * as VueGoogleMaps from 'vue2-google-maps';
+ 
 Vue.use(Vuebar);
 Vue.use(VueMasonry);
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyDDsbrELBuPLz5oaB0QykaDtE7NEmQYC9U',
+    libraries: 'places',
+  },
+});
 
 Vue.config.productionTip = false;
 

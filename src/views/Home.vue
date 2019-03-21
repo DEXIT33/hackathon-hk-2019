@@ -14,7 +14,6 @@
         >
         <event-card
           v-for="event in events"
-          v-if="event"
           :key="event.id"
           :eventId="event.id"
           :text="event.anotation"
@@ -50,6 +49,7 @@ export default class Home extends Vue {
   private lastDate: Date = new Date();
 
   private created() {
+    
     window.addEventListener('resize', this.handleResize);
 
     this.lastLimit += this.step;
