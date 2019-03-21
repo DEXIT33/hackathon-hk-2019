@@ -7,6 +7,7 @@
         Kalendář Akcí
       </v-toolbar-title>
     </v-toolbar>
+    <SideBar></SideBar>
     <v-content>
       <router-view/>
     </v-content>
@@ -38,6 +39,7 @@ body, .application {
 }
 
 .toolbar {
+  z-index: 9999;
   @media screen and (max-width: 959px) {
     height: 56px !important; 
   }
