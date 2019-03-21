@@ -31,13 +31,13 @@
 
 
 <script lang="ts">
-import { Component,Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import { items } from '../shared/toolbar_items';
 
 @Component({
 })
 export default class Navbar extends Vue {
-   
+
   @Prop({default: false})
   public opened!: boolean;
 

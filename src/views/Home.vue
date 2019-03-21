@@ -1,8 +1,8 @@
 <template>
 <div class="container-main" v-bar="{
   preventParentScroll: true
-}">
-  <div @scroll="handleScroll">
+}" ref="scrollbar">
+  <div @scroll="handleScroll" ref="contentContainer">
     <v-container class="container-header">
       <h1 class="display-3 font-weight-black ">Všechny akce</h1>
       <p class="title font-weight-regular">Řazeno od dnešního data</p>
@@ -14,7 +14,8 @@
         >
         <event-card
           v-for="event in events"
-          :key="event.id" 
+          v-if="event"
+          :key="event.id"
           :eventId="event.id"
           :text="event.anotation"
           :title="event.name"
@@ -43,21 +44,48 @@ export default class Home extends Vue {
   private events: any[] = [];
   private places = new Map<string, any>();
 
+  private loading = false;
+  private lastLimit = 0;
+  private step = 20;
+  private lastDate: Date = new Date();
+
   private created() {
     window.addEventListener('resize', this.handleResize);
 
+    this.lastLimit += this.step;
     Firebase.firestore()
       .collection('events')
       .orderBy('date_time_start_first')
       .startAt(Firebase.firestore.Timestamp.fromDate(new Date()))
-      .limit(20)
+      .limit(this.lastLimit)
       .onSnapshot((snapshot) => {
         this.loadPlaces(snapshot).then(() => {
-          this.events = snapshot.docs.map((doc) => {
-            const data = doc.data();
-            data.id = doc.id;
-            return data;
-          });
+          for (let i = 0; i < this.step; i++) {
+            this.$set(this.events, i, snapshot.docs[i].data());
+            this.events[i].id = snapshot.docs[i].id;
+            this.lastDate = snapshot.docs[i].data().date_time_start_first;
+          }
+        });
+      });
+  }
+
+  private loadNext() {
+    this.loading = true;
+
+    this.lastLimit += this.step;
+    Firebase.firestore()
+      .collection('events')
+      .orderBy('date_time_start_first')
+      .startAt(this.lastDate)
+      .limit(this.lastLimit)
+      .onSnapshot((snapshot) => {
+        this.loadPlaces(snapshot).then(() => {
+          for (let i = this.lastLimit - this.step; i < this.step; i++) {
+            this.$set(this.events, i, snapshot.docs[i].data());
+            this.events[i].id = snapshot.docs[i].id;
+            this.lastDate = snapshot.docs[i].data().index;
+          }
+          this.loading = false;
         });
       });
   }
@@ -85,6 +113,13 @@ export default class Home extends Vue {
 
   private handleScroll() {
     this.handleResize();
+
+    // @ts-ignore
+    if ((this.$refs.contentContainer as Element).clientHeight - 100 < this.$vuebar.getState(this.$refs.scrollbar).barTop + this.$vuebar.getState(this.$refs.scrollbar).barHeight) {
+      if (!this.loading) {
+        this.loadNext();
+      }
+    }
   }
 
   private async loadPlaces(snapshot: Firebase.firestore.QuerySnapshot) {
@@ -133,12 +168,22 @@ export default class Home extends Vue {
   padding-left: 70px;
   padding-right: 70px;
   max-width: initial;
+
+  @media screen and (max-width: 959px) {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 }
 
 .container-content {
   padding-left: 70px;
   padding-right: 70px;
   max-width: initial;
+
+  @media screen and (max-width: 959px) {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 }
 
 .display-3 {

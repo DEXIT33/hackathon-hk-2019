@@ -61,6 +61,7 @@ async function parseDataAsync() {
             const event: Event = {
                 id: events[i].__attr.id,
                 data: {
+                    index: i,
                     superior_event: events[i].__attr.superior_event,
                     source_id: events[i].__attr.source_id,
                     source_event_id: events[i].__attr.source_event_id,

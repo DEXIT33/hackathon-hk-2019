@@ -25,6 +25,19 @@ Firebase.initializeApp({
   messagingSenderId: '678624030793',
 });
 
+Firebase.firestore().enablePersistence()
+  .catch(function(err) {
+      if (err.code == 'failed-precondition') {
+          // Multiple tabs open, persistence can only be enabled
+          // in one tab at a a time.
+          // ...
+      } else if (err.code == 'unimplemented') {
+          // The current browser does not support all of the
+          // features required to enable persistence
+          // ...
+      }
+  });
+
 // Taken from https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
 
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
