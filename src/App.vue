@@ -1,4 +1,3 @@
-
 <template>
   <v-app>
     <v-toolbar app fixed clipped-left color="white" class="toolbar">
@@ -44,10 +43,10 @@ export default class App extends Vue {
   get items() {
     return items;
     }
-  private mobile:boolean = false;
-  private drawerOpened:boolean = false;
+  private mobile: boolean = false;
+  private drawerOpened: boolean = false;
 
-   private created() {
+  private created() {
     // tslint:disable-next-line:max-line-length
     window.addEventListener('resize', this.handleResize);
   }
@@ -64,7 +63,7 @@ export default class App extends Vue {
     }
   }
 
-  private toggleDrawer(){
+  private toggleDrawer() {
     this.drawerOpened = !this.drawerOpened;
   }
 }
@@ -162,3 +161,4 @@ body, .application {
   width: 12px;
 }
 </style>
+
