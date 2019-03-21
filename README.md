@@ -1,5 +1,7 @@
 # hackathon-hk-2019
 
+# Tato aplikace vznikla na Hackathonu královéhradeckého kraje 2019. Její funkčnost nyní není na nejlepší úrovni, avšak poskytuje některé základní funkce. Aplikaci plánujeme nadále upravovat a vytvořit z ní aplikaci, která bude moci reálně sloužit lidem. Veškeré další úpravy nalezenznete na originálním githubu našeho řešení. https://github.com/DEXIT33/hackathon-hk-2019
+
 ## Project setup
 ```
 npm install

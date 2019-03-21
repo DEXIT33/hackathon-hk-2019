@@ -89,7 +89,7 @@ export default class Home extends Vue {
   private places = new Map<string, any>();
 
   private loading = false;
-  private step = 20;
+  private step = 80;
   private lastDate: Date = new Date();
 
   private items: string[] = [];
